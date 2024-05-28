@@ -11,7 +11,7 @@ namespace EmployeeConsoleApp
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
-        protected Person(string firstName, string lastName)
+        protected Person(string firstName, string lastNasme)
         {
             FirstName = firstName;
             LastName = lastName;
