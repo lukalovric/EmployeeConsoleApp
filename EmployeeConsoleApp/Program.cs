@@ -1,28 +1,70 @@
 ﻿using EmployeeConsoleApp;
 
 EmployeeManagement employeeManagement = new EmployeeManagement();
+bool running = true;
 
-// Creating employees
-Employee emp1 = new Employee("John", "Doe", "E001", "Software Developer", 60000);
-Employee emp2 = new Employee("Jane", "Smith", "E002", "QA Engineer", 55000);
+while (running){
+    Console.WriteLine("\nEmployee Management System");
+    Console.WriteLine("1. Add Employee");
+    Console.WriteLine("2. List Employees");
+    Console.WriteLine("3. Update Employee");
+    Console.WriteLine("4. Delete Employee");
+    Console.WriteLine("5. Exit");
+    Console.Write("Choose an option: ");
+    string choice = Console.ReadLine();
 
-// Adding employees
-employeeManagement.AddEmployee(emp1);
-employeeManagement.AddEmployee(emp2);
+    switch (choice){
+        case "1":
+            AddEmployee(employeeManagement);
+            break;
+        case "2":
+            employeeManagement.ListEmployees();
+            break;
+        case "3":
+            UpdateEmployee(employeeManagement);
+            break;
+        case "4":
+            DeleteEmployee(employeeManagement);
+            break;
+        case "5":
+            running = false;
+            break;
+        default:
+            Console.WriteLine("Invalid choice. Please try again.");
+            break;
+    }
+}
 
-// Listing employees
-employeeManagement.ListEmployees();
 
-// Updating an employee
-Console.WriteLine("\nUpdating John Doe's position and salary...");
-employeeManagement.UpdateEmployee("E001", "Senior Software Developer", 70000);
+static void AddEmployee(EmployeeManagement employeeManagement){
+    Console.Write("Enter first name: ");
+    string firstName = Console.ReadLine();
+    Console.Write("Enter last name: ");
+    string lastName = Console.ReadLine();
+    Console.Write("Enter employee ID: ");
+    string employeeID = Console.ReadLine();
+    Console.Write("Enter position: ");
+    string position = Console.ReadLine();
+    Console.Write("Enter salary: ");
+    double salary = double.Parse(Console.ReadLine());
 
-// Listing employees after update
-employeeManagement.ListEmployees();
+    Employee employee = new Employee(firstName, lastName, employeeID, position, salary);
+    employeeManagement.AddEmployee(employee);
+}
 
-// Removing an employee
-Console.WriteLine("\nRemoving Jane Smith...");
-employeeManagement.RemoveEmployee("E002");
+static void UpdateEmployee(EmployeeManagement employeeManagement){
+    Console.Write("Enter employee ID to update: ");
+    string employeeID = Console.ReadLine();
+    Console.Write("Enter new position: ");
+    string newPosition = Console.ReadLine();
+    Console.Write("Enter new salary: ");
+    double newSalary = double.Parse(Console.ReadLine());
 
-// Listing employees after removal
-employeeManagement.ListEmployees();
+    employeeManagement.UpdateEmployee(employeeID, newPosition, newSalary);
+}
+
+static void DeleteEmployee(EmployeeManagement employeeManagement){
+    Console.Write("Enter employee ID to delete: ");
+    string employeeID = Console.ReadLine();
+    employeeManagement.RemoveEmployee(employeeID);
+}
